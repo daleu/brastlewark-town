@@ -1,10 +1,10 @@
-import { combineReducers } from 'redux'
-import { IBrastlewarkState } from './brastlewark';
+import { combineReducers, Reducer } from 'redux'
+import brastlewarkReducer, { IBrastlewarkState } from './brastlewark';
 
 export interface IState {
     brastlewark: IBrastlewarkState;
 }
 
-export default combineReducers({
-
+export const rootReducer: Reducer<IState> = combineReducers<IState>({
+    brastlewark: brastlewarkReducer
 })

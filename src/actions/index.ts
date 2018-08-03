@@ -1,11 +1,11 @@
-import { GET_GNOMES_REQUEST } from "../constants/constants";
+import { GET_GNOMES_ERROR, GET_GNOMES_REQUEST, GET_GNOMES_SUCCESS } from "../constants/constants";
 import GnomesDataProvider from "../dataProviders/GnomesDataProvider";
 import IDataProvider from "../dataProviders/IDataProvider";
 import { IGnomeModel } from "../models/IGnomeModel";
 
 const GetGnomesRequest = () =>({ type:GET_GNOMES_REQUEST});
-const GetGnomesSuccess = (gnomes: IGnomeModel[]) =>({ type:GET_GNOMES_REQUEST, gnomes});
-const GetGnomesError = (error: string) =>({ type:GET_GNOMES_REQUEST, error});
+const GetGnomesSuccess = (gnomes: IGnomeModel[]) =>({ type:GET_GNOMES_SUCCESS, gnomes});
+const GetGnomesError = (error: string) =>({ type:GET_GNOMES_ERROR, error});
 
 export function GetGnomes() {
   return async (dispatch: any) =>{
