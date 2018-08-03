@@ -8,16 +8,16 @@ export interface IBrastlewarkState {
 }
 
 export interface IGetGnomesRequestAction {
-    action: 'brastlewark/GET_GNOMES_REQUEST';
+    type: 'brastlewark/GET_GNOMES_REQUEST';
 }
 
 export interface IGetGnomesSuccessAction {
-    action: 'brastlewark/GET_GNOMES_SUCCESS';
+    type: 'brastlewark/GET_GNOMES_SUCCESS';
     gnomes: IGnomeModel[];
 }
 
 export interface IGetGnomesErrorAction {
-    action: 'brastlewark/GET_GNOMES_ERROR';
+    type: 'brastlewark/GET_GNOMES_ERROR';
     error: string;
 }
 
@@ -30,7 +30,7 @@ export const initialState: IBrastlewarkState = {
 };
 
 export default (state = initialState, action: IBrastlewarkAction) => {
-    switch (action.action) {
+    switch (action.type) {
         case GET_GNOMES_REQUEST:
             return state={
                 ...state,
@@ -39,6 +39,7 @@ export default (state = initialState, action: IBrastlewarkAction) => {
         case GET_GNOMES_SUCCESS:
             return state={
                 ...state,
+                gnomes: action.gnomes,
                 isBusy: false
             }
         case GET_GNOMES_ERROR:
@@ -46,7 +47,8 @@ export default (state = initialState, action: IBrastlewarkAction) => {
                 ...state,
                 isBusy: false
             }
-        default: 
+        default:
+            console.log("GNOMEEEEES"); 
             return state;
     }
 }
