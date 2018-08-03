@@ -5,6 +5,5 @@
       "config/**/*.js",
       "node_modules/**/*.ts"
     ]
-  },
-  "ordered-imports": false
+  }
 }

@@ -1,5 +1,5 @@
+import { GET_GNOMES_ERROR, GET_GNOMES_REQUEST, GET_GNOMES_SUCCESS } from "../constants/constants";
 import { IGnomeModel } from "../models/IGnomeModel";
-import { GET_GNOMES_REQUEST, GET_GNOMES_SUCCESS, GET_GNOMES_ERROR } from "../constants/constants";
 
 export interface IBrastlewarkState {
     error: string;
@@ -13,10 +13,12 @@ export interface IGetGnomesRequestAction {
 
 export interface IGetGnomesSuccessAction {
     action: 'brastlewark/GET_GNOMES_SUCCESS';
+    gnomes: IGnomeModel[];
 }
 
 export interface IGetGnomesErrorAction {
     action: 'brastlewark/GET_GNOMES_ERROR';
+    error: string;
 }
 
 export type IBrastlewarkAction = IGetGnomesRequestAction | IGetGnomesSuccessAction | IGetGnomesErrorAction;
