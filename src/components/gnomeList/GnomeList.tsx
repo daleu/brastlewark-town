@@ -16,10 +16,12 @@ export default class GnomeList extends React.Component<IGnomeListProps, IGnomeLi
 
     public render() {
         return (
-            <div className={"cardsContainer"}>
-                {this.state.gnomes.map((gnome: IGnomeModel, index: number) => {
-                    return <GnomeCard key={index} gnome={gnome}/>
-                })}
+            <div>
+                <div className={"cardsContainer"}>
+                    {this.state.gnomes.map((gnome: IGnomeModel, index: number) => {
+                        return <GnomeCard key={index} gnome={gnome}/>
+                    })}
+                </div>
             </div>
         )
     }

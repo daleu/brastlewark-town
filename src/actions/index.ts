@@ -1,4 +1,4 @@
-import { GET_GNOMES_ERROR, GET_GNOMES_REQUEST, GET_GNOMES_SUCCESS } from "../constants/constants";
+import { GET_GNOMES_ERROR, GET_GNOMES_REQUEST, GET_GNOMES_SUCCESS, HIDE_DRAWER, SHOW_DRAWER } from "../constants/constants";
 import GnomesDataProvider from "../dataProviders/GnomesDataProvider";
 import IDataProvider from "../dataProviders/IDataProvider";
 import { IGnomeModel } from "../models/IGnomeModel";
@@ -6,6 +6,8 @@ import { IGnomeModel } from "../models/IGnomeModel";
 const GetGnomesRequest = () =>({ type:GET_GNOMES_REQUEST});
 const GetGnomesSuccess = (gnomes: IGnomeModel[]) =>({ type:GET_GNOMES_SUCCESS, gnomes});
 const GetGnomesError = (error: string) =>({ type:GET_GNOMES_ERROR, error});
+const ShowDrawerAction = () => ({type:SHOW_DRAWER});
+const HideDrawerAction = () => ({type:HIDE_DRAWER});
 
 export function GetGnomes() {
   return async (dispatch: any) =>{
@@ -27,5 +29,17 @@ export function GetGnomes() {
     .catch((error: string)=>{
       dispatch(GetGnomesError(error));
     });
+  }
+}
+
+export function ShowDrawer(){
+  return async (dispatch: any) =>{
+    dispatch(ShowDrawerAction());
+  }
+}
+
+export function HideDrawer(){
+  return async (dispatch: any) =>{
+    dispatch(HideDrawerAction());
   }
 }
