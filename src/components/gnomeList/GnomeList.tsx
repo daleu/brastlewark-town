@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { IGnomeModel } from "../../models/IGnomeModel";
+import GnomeCard from '../gnomeCard/GnomeCard';
 import { IGnomeListProps } from './IGnomeListProps';
 import { IGnomeListState } from './IGnomeListState';
 
@@ -16,8 +17,8 @@ export default class GnomeList extends React.Component<IGnomeListProps, IGnomeLi
     public render() {
         return (
             <div className={"cardsContainer"}>
-                {this.props.gnomes.map((gnome: IGnomeModel, index: number) => {
-                    return <div key={index} id={gnome.id.toString()}>{gnome.name}</div>
+                {this.state.gnomes.map((gnome: IGnomeModel, index: number) => {
+                    return <GnomeCard key={index} gnome={gnome}/>
                 })}
             </div>
         )
