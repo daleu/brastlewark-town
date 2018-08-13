@@ -35,12 +35,15 @@ class App extends React.Component<any, {}> {
           <div className={"appFrame"}>
             <AppBar position="static" style={this.props.isDrawerVisible ? appBarShiftLeft : null}>
               <Toolbar>
-                <IconButton 
-                  color="inherit" 
-                  aria-label="Menu"
-                  onClick={this.handleDrawerOpen}>
-                  <MenuIcon />
-                </IconButton>
+                {!this.props.isDrawerVisible ?
+                  <IconButton 
+                    color="inherit" 
+                    aria-label="Menu"
+                    onClick={this.handleDrawerOpen}>
+                    <MenuIcon />
+                  </IconButton>
+                  : null
+                }
                 <Typography variant="title" color="inherit">
                   Gnomes
                 </Typography>

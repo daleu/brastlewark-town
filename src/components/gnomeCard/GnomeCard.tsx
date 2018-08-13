@@ -1,4 +1,5 @@
 import * as React from 'react';
+import GnomeDialog from '../gnomeDialog/GnomeDialog'
 import { IGnomeCardProps } from './IGnomeCardProps';
 import { IGnomeCardState } from './IGnomeCardState';
 
@@ -8,6 +9,7 @@ export default class GnomeList extends React.Component<IGnomeCardProps, IGnomeCa
         super(props);
         
         this.state = {
+            dialogOpen: false,
             gnome: props.gnome
         }
     }
@@ -19,14 +21,25 @@ export default class GnomeList extends React.Component<IGnomeCardProps, IGnomeCa
         }
 
         return (
-            <div className={"gnomeCard"}>
-                <div className={"cardThumbnail"} style={profileImage}/>
-                <div className={"cardTextContainer"}>
-                    <div className="cardName">{this.state.gnome.name}</div>
-                    <div className="cardAge">{"Age: "+this.state.gnome.age+" years"}</div>
-                </div>      
+            <div>
+                <div className={"gnomeCard"} onClick={this.openDialog}>
+                    <div className={"cardThumbnail"} style={profileImage}/>
+                    <div className={"cardTextContainer"}>
+                        <div className="cardName">{this.state.gnome.name}</div>
+                        <div className="cardAge">{"Age: "+this.state.gnome.age+" years"}</div>
+                    </div>      
+                </div>
+                <GnomeDialog closeDialog={this.closeDialog} dialogOpen={this.state.dialogOpen} gnome={this.state.gnome}/>
             </div>
         )
+    }
+
+    private openDialog = () =>{
+        this.setState({dialogOpen: true})
+    }
+
+    private closeDialog = () =>{
+        this.setState({dialogOpen: false})
     }
 
 }

@@ -1,6 +1,7 @@
 import { IGnomeModel } from "../../models/IGnomeModel";
 
-export interface IGnomeCardState {
+export interface IGnomeDialogProps {
     gnome: IGnomeModel;
     dialogOpen: boolean;
+    closeDialog: () => void;
 }
