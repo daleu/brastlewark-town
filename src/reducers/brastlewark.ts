@@ -48,7 +48,6 @@ export default (state = initialState, action: IBrastlewarkAction) => {
                 isBusy: false
             }
         default:
-            console.log("GNOMEEEEES"); 
             return state;
     }
 }
