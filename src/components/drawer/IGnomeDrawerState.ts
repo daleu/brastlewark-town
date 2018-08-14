@@ -1,7 +1,7 @@
 export interface IGnomeDrawerState {
-    gnomeHair: string;
+    gnomeHair: string[];
     gnomeName: string;
-    gnomeProfession: string;
+    gnomeProfession: string[];
     isVisible: boolean;
     maxAge: string;
     maxHeight: string;

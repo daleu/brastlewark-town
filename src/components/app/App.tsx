@@ -81,8 +81,8 @@ class App extends React.Component<any, {}> {
 
   private filterGnomes = (
     gnomeName: string, 
-    gnomeHair: string, 
-    gnomeProfession: string,
+    gnomeHair: string[], 
+    gnomeProfession: string[],
     minAge: number,
     maxAge: number,
     minHeight: number,
@@ -98,8 +98,8 @@ class App extends React.Component<any, {}> {
 interface IDispatch{
   filterGnomes:(
     gnomeName:string, 
-    gnomeHair: string, 
-    gnomeProfession: string,
+    gnomeHair: string[], 
+    gnomeProfession: string[],
     minAge: number,
     maxAge: number,
     minHeight: number,
@@ -128,8 +128,8 @@ const mapDispatchToProps = (dispatch: any):IDispatch => {
   return{
     filterGnomes: (
       gnomeName: string, 
-      gnomeHair: string, 
-      gnomeProfession: string,
+      gnomeHair: string[], 
+      gnomeProfession: string[],
       minAge: number,
       maxAge: number,
       minHeight: number,

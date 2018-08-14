@@ -18,9 +18,9 @@ export default class GnomeDrawer extends React.Component<IGnomeDrawerProps, IGno
         super(props);
         
         this.state = {
-            gnomeHair: '',
+            gnomeHair:[],
             gnomeName: '',
-            gnomeProfession: '',
+            gnomeProfession: [],
             isVisible: props.isVisible,
             maxAge: this.props.maxAge.toString(),
             maxHeight: this.props.maxHeight.toString(),
@@ -64,6 +64,7 @@ export default class GnomeDrawer extends React.Component<IGnomeDrawerProps, IGno
                         onChange={this.handleHairSelectChange}
                         fullWidth={true}
                         className={"selectStyle"}
+                        multiple={true}
                     >
                         <MenuItem value="">
                             <em>None</em>
@@ -80,6 +81,7 @@ export default class GnomeDrawer extends React.Component<IGnomeDrawerProps, IGno
                         onChange={this.handleProfessionSelectChange}
                         fullWidth={true}
                         className={"selectStyle"}
+                        multiple={true}
                     >
                         <MenuItem value="">
                             <em>None</em>
@@ -91,7 +93,7 @@ export default class GnomeDrawer extends React.Component<IGnomeDrawerProps, IGno
 
                     <Divider className={"selectStyle"}/>
                     <InputLabel>
-                        Min Gnome Age
+                        Min. Gnome Age
                     </InputLabel>
                     <TextField
                         fullWidth={true}
@@ -102,7 +104,7 @@ export default class GnomeDrawer extends React.Component<IGnomeDrawerProps, IGno
                         className={"selectStyle"}
                         />
                     <InputLabel>
-                        Max Gnome Age
+                        Max. Gnome Age
                     </InputLabel>
                     <TextField
                         fullWidth={true}
@@ -115,7 +117,7 @@ export default class GnomeDrawer extends React.Component<IGnomeDrawerProps, IGno
 
                     <Divider className={"selectStyle"}/>
                     <InputLabel>
-                        Min Gnome Height
+                        Min. Gnome Height
                     </InputLabel>
                     <TextField
                         fullWidth={true}
@@ -126,7 +128,7 @@ export default class GnomeDrawer extends React.Component<IGnomeDrawerProps, IGno
                         className={"selectStyle"}
                         />
                     <InputLabel>
-                        Max Gnome Height
+                        Max. Gnome Height
                     </InputLabel>
                     <TextField
                         fullWidth={true}
@@ -139,7 +141,7 @@ export default class GnomeDrawer extends React.Component<IGnomeDrawerProps, IGno
                     
                     <Divider className={"selectStyle"}/>
                     <InputLabel>
-                        Min Gnome Weight
+                        Min. Gnome Weight
                     </InputLabel>
                     <TextField
                         fullWidth={true}
@@ -150,7 +152,7 @@ export default class GnomeDrawer extends React.Component<IGnomeDrawerProps, IGno
                         className={"selectStyle"}
                         />
                     <InputLabel>
-                        Max Gnome Weight
+                        Max. Gnome Weight
                     </InputLabel>
                     <TextField
                         fullWidth={true}

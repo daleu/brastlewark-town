@@ -44,8 +44,8 @@ export interface IHideDrawer {
 export interface IFilterGnomes {
     type: 'brastlewark/FILTER_GNOMES';
     gnomeName: string;
-    gnomeHair: string;
-    gnomeProfession: string;
+    gnomeHair: string[];
+    gnomeProfession: string[];
     minAge: number;
     maxAge: number;
     minHeight: number;
@@ -126,12 +126,26 @@ export default (state = initialState, action: IBrastlewarkAction) => {
                     name = true;
                 }
 
-                if(action.gnomeHair==="" || action.gnomeHair===gnome.hair_color){
+                if(action.gnomeHair.length===0){
                     hair = true;
                 }
+                else{
+                    action.gnomeHair.forEach(hairelement => {
+                        if(hairelement===gnome.hair_color){
+                            hair=true;
+                        }
+                    });
+                }
 
-                if(action.gnomeProfession==="" || gnome.professions.indexOf(action.gnomeProfession)!==-1){
+                if(action.gnomeProfession.length===0){
                     profession = true;
+                }
+                else{
+                    action.gnomeProfession.forEach(professionelement => {
+                        if(gnome.professions.indexOf(professionelement)!==-1){
+                            profession = true;
+                        }
+                    });
                 }
 
                 if(gnome.age>=action.minAge && gnome.age<=action.maxAge){
@@ -150,25 +164,6 @@ export default (state = initialState, action: IBrastlewarkAction) => {
                     gnomesToShow.push(gnome);
                 }
             });
-
-            // Filter by Gnome Hair Color
-            // if(action.gnomeHair!==""){
-            //     for (let i = gnomesToShow.length - 1; i >= 0; i -= 1) {
-            //         if(action.gnomeHair!==gnomesToShow[i].hair_color){
-            //             gnomesToShow.splice(i,1);
-            //         }
-            //     }
-            // }
-
-            // Filter by Gnome Profession
-            // if(action.gnomeProfession!==""){
-            //     for (let i = gnomesToShow.length - 1; i >= 0; i -= 1) {
-            //         if(gnomesToShow[i].professions.indexOf(action.gnomeProfession)===-1){
-            //             gnomesToShow.splice(i,1);
-            //         }
-            //     }
-            // }
-
 
             return state={
                 ...state,

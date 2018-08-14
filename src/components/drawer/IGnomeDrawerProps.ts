@@ -8,8 +8,8 @@ export interface IGnomeDrawerProps {
     closeDrawer: () => void;
     filterGnomes: (
         gnomeName: string,
-        gnomeHair: string, 
-        gnomeProfession: string,
+        gnomeHair: string[], 
+        gnomeProfession: string[],
         minAge: number,
         maxAge: number,
         minHeight: number,

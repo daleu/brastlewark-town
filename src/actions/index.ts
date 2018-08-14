@@ -11,8 +11,8 @@ const ShowDrawerAction = () => ({type:SHOW_DRAWER});
 const HideDrawerAction = () => ({type:HIDE_DRAWER});
 const FilterGnomesAction = (
   gnomeName: string, 
-  gnomeHair: string, 
-  gnomeProfession: string,
+  gnomeHair: string[], 
+  gnomeProfession: string[],
   minAge: number,
   maxAge: number,
   minHeight: number,
@@ -76,8 +76,8 @@ export function HideDrawer(){
 
 export function FilterGnomes(
   gnomeName: string, 
-  gnomeHair: string, 
-  gnomeProfession: string,
+  gnomeHair: string[], 
+  gnomeProfession: string[],
   minAge: number,
   maxAge: number,
   minHeight: number,
