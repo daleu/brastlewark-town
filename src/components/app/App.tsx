@@ -5,7 +5,7 @@ import Typography from '@material-ui/core/Typography';
 import MenuIcon from '@material-ui/icons/Menu';
 import * as React from 'react';
 import { connect } from 'react-redux';
-import { GetGnomes, HideDrawer, ShowDrawer } from '../../actions';
+import { FilterGnomes, GetGnomes, HideDrawer, ShowDrawer } from '../../actions';
 import { IState } from '../../store';
 import GnomeDrawer from '../drawer/GnomeDrawer';
 import GnomeList from '../gnomeList/GnomeList';
@@ -49,8 +49,19 @@ class App extends React.Component<any, {}> {
                 </Typography>
               </Toolbar>
             </AppBar>
-            <GnomeDrawer isVisible={this.props.isDrawerVisible} closeDrawer={this.handleDrawerClose}/>
+            <GnomeDrawer 
+              gnomesHairColor={this.props.gnomesHairColor}
+              gnomesProfessions={this.props.gnomesProfessions}
+              isVisible={this.props.isDrawerVisible} 
+              maxAge={this.props.maxAge}
+              maxHeight={this.props.maxHeight}
+              maxWeight={this.props.maxWeight}
+              closeDrawer={this.handleDrawerClose} 
+              filterGnomes={this.filterGnomes}
+
+              />
             <div style={this.props.isDrawerVisible ? shiftLeft : null}>
+              {console.log(this.props.gnomes)}
               <GnomeList gnomes={this.props.gnomes}/>
             </div>
           </div>
@@ -68,10 +79,34 @@ class App extends React.Component<any, {}> {
     this.props.hideDrawer();
   }
 
+  private filterGnomes = (
+    gnomeName: string, 
+    gnomeHair: string, 
+    gnomeProfession: string,
+    minAge: number,
+    maxAge: number,
+    minHeight: number,
+    maxHeight: number,
+    minWeight: number,
+    maxWeight: number
+  ) => {
+    this.props.filterGnomes(gnomeName, gnomeHair, gnomeProfession, minAge, maxAge, minHeight, maxHeight, minWeight, maxWeight);
+  }
 }
 
 
 interface IDispatch{
+  filterGnomes:(
+    gnomeName:string, 
+    gnomeHair: string, 
+    gnomeProfession: string,
+    minAge: number,
+    maxAge: number,
+    minHeight: number,
+    maxHeight: number,
+    minWeight: number,
+    maxWeight: number
+  ) => void;
   getGnomes:() => void;
   hideDrawer:() => void;
   showDrawer:() => void;
@@ -80,12 +115,30 @@ interface IDispatch{
 const mapStateToProps = (state: IState) => ({
   error: state.brastlewark.error,
   gnomes: state.brastlewark.gnomes,
+  gnomesHairColor: state.brastlewark.gnomesHairColor,
+  gnomesProfessions: state.brastlewark.gnomesProfessions,
   isBusy: state.brastlewark.isBusy,
-  isDrawerVisible: state.brastlewark.isDrawerVisible
+  isDrawerVisible: state.brastlewark.isDrawerVisible,
+  maxAge: state.brastlewark.maxAge,
+  maxHeight: state.brastlewark.maxHeight,
+  maxWeight: state.brastlewark.maxWeight
 });
 
 const mapDispatchToProps = (dispatch: any):IDispatch => {
   return{
+    filterGnomes: (
+      gnomeName: string, 
+      gnomeHair: string, 
+      gnomeProfession: string,
+      minAge: number,
+      maxAge: number,
+      minHeight: number,
+      maxHeight: number,
+      minWeight: number,
+      maxWeight: number
+    ) =>{
+      return dispatch(FilterGnomes(gnomeName, gnomeHair, gnomeProfession, minAge, maxAge, minHeight, maxHeight, minWeight, maxWeight))
+    },
     getGnomes:()=>{
       return dispatch(GetGnomes());
     },

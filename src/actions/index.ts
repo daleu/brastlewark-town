@@ -1,13 +1,25 @@
-import { GET_GNOMES_ERROR, GET_GNOMES_REQUEST, GET_GNOMES_SUCCESS, HIDE_DRAWER, SHOW_DRAWER } from "../constants/constants";
+import { FILTER_GNOMES, GET_GNOMES_ERROR, GET_GNOMES_REQUEST, GET_GNOMES_SUCCESS, HIDE_DRAWER, SHOW_DRAWER } from "../constants/constants";
 import GnomesDataProvider from "../dataProviders/GnomesDataProvider";
 import IDataProvider from "../dataProviders/IDataProvider";
 import { IGnomeModel } from "../models/IGnomeModel";
 
 const GetGnomesRequest = () =>({ type:GET_GNOMES_REQUEST});
-const GetGnomesSuccess = (gnomes: IGnomeModel[]) =>({ type:GET_GNOMES_SUCCESS, gnomes});
+const GetGnomesSuccess = (gnomes: IGnomeModel[], maxAge: number, maxHeight: number, maxWeight: number, gnomesHairColor: string[], gnomesProfessions: string[]) =>
+  ({ type:GET_GNOMES_SUCCESS, gnomes, maxAge, maxHeight, maxWeight, gnomesHairColor, gnomesProfessions});
 const GetGnomesError = (error: string) =>({ type:GET_GNOMES_ERROR, error});
 const ShowDrawerAction = () => ({type:SHOW_DRAWER});
 const HideDrawerAction = () => ({type:HIDE_DRAWER});
+const FilterGnomesAction = (
+  gnomeName: string, 
+  gnomeHair: string, 
+  gnomeProfession: string,
+  minAge: number,
+  maxAge: number,
+  minHeight: number,
+  maxHeight: number,
+  minWeight: number,
+  maxWeight: number
+) => ({type:FILTER_GNOMES, gnomeName, gnomeHair, gnomeProfession, minAge, maxAge, minHeight, maxHeight, minWeight, maxWeight});
 
 export function GetGnomes() {
   return async (dispatch: any) =>{
@@ -24,7 +36,25 @@ export function GetGnomes() {
 
     service.getGnomes()
     .then((gnomes: IGnomeModel[]) =>{
-      dispatch(GetGnomesSuccess(gnomes));
+      const gnomesHairColor: string[] = [];
+      const gnomesProfessions: string[] = [];
+      let maxHeight: number = 0;
+      let maxWeight: number = 0;
+      let maxAge: number = 0;
+      gnomes.forEach(gnome => {
+        if(gnome.weight>maxHeight){ maxHeight=gnome.height;}
+        if(gnome.weight>maxWeight){ maxWeight=gnome.weight;}
+        if(gnome.age>maxAge){ maxAge=gnome.age;}
+        if(gnomesHairColor.indexOf(gnome.hair_color)===-1){
+          gnomesHairColor.push(gnome.hair_color);
+        }
+        gnome.professions.forEach(profession =>{
+          if(gnomesProfessions.indexOf(profession)===-1){
+            gnomesProfessions.push(profession);
+          }
+        });
+      });
+      dispatch(GetGnomesSuccess(gnomes,maxAge,maxHeight,maxWeight,gnomesHairColor,gnomesProfessions));
     })
     .catch((error: string)=>{
       dispatch(GetGnomesError(error));
@@ -41,5 +71,21 @@ export function ShowDrawer(){
 export function HideDrawer(){
   return async (dispatch: any) =>{
     dispatch(HideDrawerAction());
+  }
+}
+
+export function FilterGnomes(
+  gnomeName: string, 
+  gnomeHair: string, 
+  gnomeProfession: string,
+  minAge: number,
+  maxAge: number,
+  minHeight: number,
+  maxHeight: number,
+  minWeight: number,
+  maxWeight: number
+){
+  return async (dispatch: any) =>{
+    dispatch(FilterGnomesAction(gnomeName, gnomeHair, gnomeProfession, minAge, maxAge, minHeight, maxHeight, minWeight, maxWeight));
   }
 }

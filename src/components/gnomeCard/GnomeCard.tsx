@@ -34,6 +34,10 @@ export default class GnomeList extends React.Component<IGnomeCardProps, IGnomeCa
         )
     }
 
+    public componentWillReceiveProps(newProps: any){
+        this.setState({gnome: newProps.gnome});
+    }
+
     private openDialog = () =>{
         this.setState({dialogOpen: true})
     }

@@ -73,6 +73,9 @@ export default class GnomeDrawer extends React.Component<IGnomeDialogProps, IGno
     }
 
     public componentWillReceiveProps(newProps: any){
-        this.setState({dialogOpen: newProps.dialogOpen});
+        this.setState({
+            dialogOpen: newProps.dialogOpen,
+            gnome: newProps.gnome
+        });
     }
 }

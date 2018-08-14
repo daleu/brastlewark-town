@@ -26,4 +26,8 @@ export default class GnomeList extends React.Component<IGnomeListProps, IGnomeLi
         )
     }
 
+    public componentWillReceiveProps(newProps: any){
+        this.setState({gnomes: newProps.gnomes});
+    }
+
 }
