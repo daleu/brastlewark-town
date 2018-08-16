@@ -1,5 +1,12 @@
 @import url('https://fonts.googleapis.com/css?family=Chivo|Overpass');
 
+.appBarText{
+  color: #E20019 !important;
+  font-weight: 700 !important;
+  font-family: 'Chivo', sans-serif !important;
+  font-size: 23px !important;
+}
+
 .appFrame {
   height: 430;
   z-index: 1;
@@ -10,7 +17,7 @@
 }
 
 .drawerPaper {
-  width: 240px;
+  width: 285px;
 }
 
 .drawerHeader {
@@ -20,9 +27,31 @@
   padding: '0 8px';
 }
 
+.drawerHeaderBig{
+  display: 'flex';
+  align-items: 'center',;
+  justify-content: 'flex-end';
+  padding: '0 8px';
+  height: 64px !important;
+}
+
+.drawerFilterTitles{
+  color: #E20019 !important;
+  font-weight: 700 !important;
+  font-family: 'Chivo', sans-serif !important;
+  font-size: 20px !important;
+  margin-bottom: 10px;
+}
+
 .drawerListFilters{
   margin-left: 10px !important;
   margin-right: 10px !important;
+}
+
+.drawerBottons{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
 }
 
 .cardsContainer {

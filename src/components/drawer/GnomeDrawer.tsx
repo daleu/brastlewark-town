@@ -25,7 +25,7 @@ export default class GnomeDrawer extends React.Component<IGnomeDrawerProps, IGno
             gnomeHair:[],
             gnomeName: '',
             gnomeProfession: [],
-            isVisible: props.isVisible,
+            isVisible: this.props.isVisible,
             maxAge: this.props.maxAge.toString(),
             maxHeight: this.props.maxHeight.toString(),
             maxWeight: this.props.maxWeight.toString(),
@@ -36,6 +36,9 @@ export default class GnomeDrawer extends React.Component<IGnomeDrawerProps, IGno
     }
 
     public render(){
+
+        console.log("sreen width", screen.width);
+
         return (
             <Drawer
                 variant="persistent"
@@ -45,17 +48,19 @@ export default class GnomeDrawer extends React.Component<IGnomeDrawerProps, IGno
                 paper: "drawerPaper",
                 }}
             >
-                <div className={"drawerHeader"}>
+                <div className={screen.width>=600 ? "drawerHeaderBig" : "drawerHeader"}>
                     <IconButton onClick={this.props.closeDrawer}>
                         <ChevronLeftIcon />
                     </IconButton>
                 </div>
                 <Divider />
                 <List className={"drawerListFilters"}>
+                    <div className={"drawerFilterTitles"}>Basic Filters:</div>
                     <InputLabel>
                         Gnome Name
                     </InputLabel>
                     <TextField
+                        value={this.state.gnomeName}
                         fullWidth={true}
                         onChange={this.handleGnomeNameChange}
                         className={"selectStyle"}
@@ -95,8 +100,8 @@ export default class GnomeDrawer extends React.Component<IGnomeDrawerProps, IGno
                         })}
                     </Select>
                     <FormHelperText className={"selectStyle"}>Gnomes will be showed if they have one of the professions selected.</FormHelperText>
-
                     <Divider className={"selectStyle"}/>
+                    <div className={"drawerFilterTitles"}>Age Filters:</div>
                     <InputLabel>
                         Min. Gnome Age
                     </InputLabel>
@@ -121,6 +126,7 @@ export default class GnomeDrawer extends React.Component<IGnomeDrawerProps, IGno
                         />
 
                     <Divider className={"selectStyle"}/>
+                    <div className={"drawerFilterTitles"}>Height Filters:</div>
                     <InputLabel>
                         Min. Gnome Height
                     </InputLabel>
@@ -145,6 +151,7 @@ export default class GnomeDrawer extends React.Component<IGnomeDrawerProps, IGno
                         />
                     
                     <Divider className={"selectStyle"}/>
+                    <div className={"drawerFilterTitles"}>Weight Filters:</div>
                     <InputLabel>
                         Min. Gnome Weight
                     </InputLabel>
@@ -167,7 +174,8 @@ export default class GnomeDrawer extends React.Component<IGnomeDrawerProps, IGno
                         onChange={this.handleGnomeMaxWeightChange}
                         className={"selectStyle"}
                         />
-                <Divider/>
+                <Divider className={"selectStyle"}/>
+                <div className={"drawerFilterTitles"}>Friends Filter:</div>
                 <InputLabel>
                     Gnome Friends
                 </InputLabel>
@@ -176,10 +184,16 @@ export default class GnomeDrawer extends React.Component<IGnomeDrawerProps, IGno
                     onChange = {this.onPeoplePickerChange}
                     key={'normal'}
                 />
+                <FormHelperText className={"selectStyle"}>Gnomes will be showed if they have one of the friends selected.</FormHelperText>
                 </List>
-                <Button onClick={this.searchGnomes} color="primary">
-                    Search
-                </Button>
+                <div className={"drawerBottons"}>
+                    <Button onClick={this.clearFilters} color="primary">
+                        Clear Filters
+                    </Button>
+                    <Button onClick={this.searchGnomes} color="primary">
+                        Search
+                    </Button>
+                </div>
             </Drawer>
         )
     }
@@ -262,6 +276,21 @@ export default class GnomeDrawer extends React.Component<IGnomeDrawerProps, IGno
 
     private handleProfessionSelectChange = (event: any) => {
         this.setState({gnomeProfession: event.target.value})
+    }
+
+    private clearFilters = () => {
+        this.setState({
+            gnomeFriends: [],
+            gnomeHair:[],
+            gnomeName: '',
+            gnomeProfession: [],
+            maxAge: this.props.maxAge.toString(),
+            maxHeight: this.props.maxHeight.toString(),
+            maxWeight: this.props.maxWeight.toString(),
+            minAge: '0',
+            minHeight: '0',
+            minWeight: '0'
+        });
     }
 
     private searchGnomes = () => {

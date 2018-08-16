@@ -20,31 +20,50 @@ class App extends React.Component<any, {}> {
 
   public render() {
 
-    const appBarShiftLeft = {
-      marginLeft: "240px",
-      width: "calc(100% - 240px)"
+    let appBarShiftLeft;
+
+    if(screen.width<550){
+      appBarShiftLeft = {
+        backgroundColor: "#00008F",
+        marginLeft: "285px"
+      }
+    }
+    else{
+      appBarShiftLeft = {
+        backgroundColor: "#00008F",
+        marginLeft: "285px",
+        width: "calc(100% - 285px)"        
+      }
+    }
+
+    const appBarNoShiftLeft = {
+      backgroundColor: "#00008F"
     }
 
     const shiftLeft = {
-      marginLeft: "240px"
+      marginLeft: "285px"
     }
 
     return (
       <div>
         {!this.props.isBusy ?
           <div className={"appFrame"}>
-            <AppBar position="static" style={this.props.isDrawerVisible ? appBarShiftLeft : null}>
+            <AppBar 
+              position="static" 
+              style={this.props.isDrawerVisible ? appBarShiftLeft : appBarNoShiftLeft}>
               <Toolbar>
                 {!this.props.isDrawerVisible ?
                   <IconButton 
-                    color="inherit" 
                     aria-label="Menu"
-                    onClick={this.handleDrawerOpen}>
+                    onClick={this.handleDrawerOpen}
+                    className={"appBarText"}>
                     <MenuIcon />
                   </IconButton>
                   : null
                 }
-                <Typography variant="title" color="inherit">
+                <Typography 
+                  variant="title" 
+                  className={"appBarText"}>
                   Gnomes
                 </Typography>
               </Toolbar>
