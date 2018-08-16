@@ -5,11 +5,11 @@ This project is an easy way to browse all the population of Brastlewark. You can
 ## Table of Contents
 
 - [Run The Project](#run-the-project)
-- [Used Libraries](#sending-feedback)
+- [Used Libraries](#used-libraries)
 - [Project Structure](#project-structure)
   - [Folder Structure](#project-structure)
-  - [How the project is structured](how-the-project-is-structured)
-  - [Data Flow](data-flow)
+  - [How the project is structured](#how-the-project-is-structured)
+  - [Data Flow](#data-flow)
   
 ## Run The Project
 
