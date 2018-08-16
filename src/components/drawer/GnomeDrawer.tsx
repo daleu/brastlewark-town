@@ -37,8 +37,6 @@ export default class GnomeDrawer extends React.Component<IGnomeDrawerProps, IGno
 
     public render(){
 
-        console.log("sreen width", screen.width);
-
         return (
             <Drawer
                 variant="persistent"
@@ -294,12 +292,11 @@ export default class GnomeDrawer extends React.Component<IGnomeDrawerProps, IGno
     }
 
     private searchGnomes = () => {
-        console.log(this.state.gnomeFriends);
         const gnomeFriends: string[] = [];
         this.state.gnomeFriends.forEach(gnome => {
             gnomeFriends.push(gnome.primaryText);
         });
-        console.log(gnomeFriends);
+        
         this.props.filterGnomes(
             gnomeFriends,
             this.state.gnomeName, 

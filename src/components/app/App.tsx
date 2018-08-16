@@ -46,7 +46,7 @@ class App extends React.Component<any, {}> {
 
     return (
       <div>
-        {!this.props.isBusy ?
+        {!this.props.isBusy && this.props.error==null ?
           <div className={"appFrame"}>
             <AppBar 
               position="static" 
@@ -81,9 +81,18 @@ class App extends React.Component<any, {}> {
 
               />
             <div style={this.props.isDrawerVisible ? shiftLeft : null}>
-              {console.log(this.props.gnomes)}
               <GnomeList gnomes={this.props.gnomes}/>
             </div>
+          </div>
+          : null
+        }
+        {!this.props.isBusy && this.props.error!=null ?
+          <div>
+            <div>
+              Brastlewark Town had a problem...
+              Plis, come later :)
+            </div>
+            <div>Error message: {this.props.error}</div>
           </div>
           : null
         }

@@ -5,12 +5,10 @@
   "dependencies": {
     "@material-ui/core": "^1.4.2",
     "@material-ui/icons": "^2.0.2",
-    "@material-ui/lab": "^1.0.0-alpha.10",
     "@types/jquery": "^3.3.5",
     "@types/react-redux": "^6.0.5",
     "@types/redux-logger": "^3.0.6",
     "@types/redux-thunk": "^2.1.0",
-    "downshift": "^2.1.0",
     "jquery": "^3.3.1",
     "office-ui-fabric-react": "^6.49.2",
     "react": "^16.4.2",
@@ -23,11 +21,9 @@
   "scripts": {
     "start": "react-scripts-ts start",
     "build": "react-scripts-ts build",
-    "test": "react-scripts-ts test --env=jsdom",
     "eject": "react-scripts-ts eject"
   },
   "devDependencies": {
-    "@types/jest": "^23.3.1",
     "@types/node": "^10.5.5",
     "@types/react": "^16.4.7",
     "@types/react-dom": "^16.0.6",

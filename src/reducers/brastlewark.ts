@@ -112,6 +112,7 @@ export default (state = initialState, action: IBrastlewarkAction) => {
         case GET_GNOMES_ERROR:
             return state={
                 ...state,
+                error: action.error,
                 isBusy: false
             }
         case FILTER_GNOMES:
