@@ -15,7 +15,13 @@ class App extends React.Component<any, {}> {
 
   constructor(props: any) {
     super(props);
-    this.props.getGnomes();
+
+    let isDrawerVisible = true;
+    if(screen.width<750){
+      isDrawerVisible = false;
+    }
+
+    this.props.getGnomes(isDrawerVisible);
   }
 
   public render() {
@@ -138,7 +144,9 @@ interface IDispatch{
     minWeight: number,
     maxWeight: number
   ) => void;
-  getGnomes:() => void;
+  getGnomes:(
+    isDrawerVisible: boolean
+  ) => void;
   hideDrawer:() => void;
   showDrawer:() => void;
 }
@@ -172,8 +180,8 @@ const mapDispatchToProps = (dispatch: any):IDispatch => {
     ) =>{
       return dispatch(FilterGnomes(gnomeFriends, gnomeName, gnomeHair, gnomeProfession, minAge, maxAge, minHeight, maxHeight, minWeight, maxWeight))
     },
-    getGnomes:()=>{
-      return dispatch(GetGnomes());
+    getGnomes:(isDrawerVisible: boolean)=>{
+      return dispatch(GetGnomes(isDrawerVisible));
     },
     hideDrawer:()=>{
       return dispatch(HideDrawer());

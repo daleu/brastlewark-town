@@ -11,8 +11,9 @@ const GetGnomesSuccess = (
   maxWeight: number, 
   gnomesHairColor: string[], 
   gnomesProfessions: string[],
-  gnomesNames: string[]
-) => ({ type:GET_GNOMES_SUCCESS, gnomes, maxAge, maxHeight, maxWeight, gnomesHairColor, gnomesProfessions, gnomesNames});
+  gnomesNames: string[],
+  isDrawerVisible: boolean
+) => ({ type:GET_GNOMES_SUCCESS, gnomes, maxAge, maxHeight, maxWeight, gnomesHairColor, gnomesProfessions, gnomesNames, isDrawerVisible});
 const GetGnomesError = (error: string) =>({ type:GET_GNOMES_ERROR, error});
 const ShowDrawerAction = () => ({type:SHOW_DRAWER});
 const HideDrawerAction = () => ({type:HIDE_DRAWER});
@@ -29,7 +30,7 @@ const FilterGnomesAction = (
   maxWeight: number
 ) => ({type:FILTER_GNOMES, gnomeFriends, gnomeName, gnomeHair, gnomeProfession, minAge, maxAge, minHeight, maxHeight, minWeight, maxWeight});
 
-export function GetGnomes() {
+export function GetGnomes(isDrawerVisible: boolean) {
   return async (dispatch: any) =>{
     dispatch(GetGnomesRequest());
 
@@ -64,7 +65,7 @@ export function GetGnomes() {
           }
         });
       });
-      dispatch(GetGnomesSuccess(gnomes,maxAge,maxHeight,maxWeight,gnomesHairColor,gnomesProfessions, gnomesNames));
+      dispatch(GetGnomesSuccess(gnomes,maxAge,maxHeight,maxWeight,gnomesHairColor,gnomesProfessions, gnomesNames, isDrawerVisible));
     })
     .catch((error: string)=>{
       dispatch(GetGnomesError(error));

@@ -154,3 +154,26 @@
 .selectStyle{
   margin-bottom: 8px !important;
 }
+
+@media (max-width: 660px) {
+  .dialogThumbnail{
+    height: 150px;
+    width: 150px;
+    margin-bottom: 10px;
+  }
+  .infoTitle{
+    font-size: 20px;
+  }
+  .info{
+    font-size: 12px;
+  }
+  .dialogContent{
+    display: block;
+    flex-wrap: nowrap;
+    justify-content: center;
+  }
+
+  .dialogTextContainer{
+    margin-left: 0px;
+  }
+}

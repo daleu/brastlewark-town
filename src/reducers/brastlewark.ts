@@ -25,6 +25,7 @@ export interface IGetGnomesSuccessAction {
     gnomesHairColor: string[];
     gnomesNames: string[];
     gnomesProfessions: string[];
+    isDrawerVisible: boolean;
     maxAge: number;
     maxHeight: number;
     maxWeight: number;
@@ -104,7 +105,7 @@ export default (state = initialState, action: IBrastlewarkAction) => {
                 gnomesNames: action.gnomesNames,
                 gnomesProfessions: action.gnomesProfessions,
                 isBusy: false,
-                isDrawerVisible: true,
+                isDrawerVisible: action.isDrawerVisible,
                 maxAge: action.maxAge,
                 maxHeight: action.maxHeight,
                 maxWeight: action.maxWeight
