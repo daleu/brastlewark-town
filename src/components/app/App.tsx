@@ -51,6 +51,7 @@ class App extends React.Component<any, {}> {
             </AppBar>
             <GnomeDrawer 
               gnomesHairColor={this.props.gnomesHairColor}
+              gnomeNames={this.props.gnomesNames}
               gnomesProfessions={this.props.gnomesProfessions}
               isVisible={this.props.isDrawerVisible} 
               maxAge={this.props.maxAge}
@@ -80,6 +81,7 @@ class App extends React.Component<any, {}> {
   }
 
   private filterGnomes = (
+    gnomeFriends: string[],
     gnomeName: string, 
     gnomeHair: string[], 
     gnomeProfession: string[],
@@ -90,13 +92,14 @@ class App extends React.Component<any, {}> {
     minWeight: number,
     maxWeight: number
   ) => {
-    this.props.filterGnomes(gnomeName, gnomeHair, gnomeProfession, minAge, maxAge, minHeight, maxHeight, minWeight, maxWeight);
+    this.props.filterGnomes(gnomeFriends, gnomeName, gnomeHair, gnomeProfession, minAge, maxAge, minHeight, maxHeight, minWeight, maxWeight);
   }
 }
 
 
 interface IDispatch{
   filterGnomes:(
+    gnomeFriends: string[],
     gnomeName:string, 
     gnomeHair: string[], 
     gnomeProfession: string[],
@@ -116,6 +119,7 @@ const mapStateToProps = (state: IState) => ({
   error: state.brastlewark.error,
   gnomes: state.brastlewark.gnomes,
   gnomesHairColor: state.brastlewark.gnomesHairColor,
+  gnomesNames: state.brastlewark.gnomesNames,
   gnomesProfessions: state.brastlewark.gnomesProfessions,
   isBusy: state.brastlewark.isBusy,
   isDrawerVisible: state.brastlewark.isDrawerVisible,
@@ -127,6 +131,7 @@ const mapStateToProps = (state: IState) => ({
 const mapDispatchToProps = (dispatch: any):IDispatch => {
   return{
     filterGnomes: (
+      gnomeFriends: string[],
       gnomeName: string, 
       gnomeHair: string[], 
       gnomeProfession: string[],
@@ -137,7 +142,7 @@ const mapDispatchToProps = (dispatch: any):IDispatch => {
       minWeight: number,
       maxWeight: number
     ) =>{
-      return dispatch(FilterGnomes(gnomeName, gnomeHair, gnomeProfession, minAge, maxAge, minHeight, maxHeight, minWeight, maxWeight))
+      return dispatch(FilterGnomes(gnomeFriends, gnomeName, gnomeHair, gnomeProfession, minAge, maxAge, minHeight, maxHeight, minWeight, maxWeight))
     },
     getGnomes:()=>{
       return dispatch(GetGnomes());

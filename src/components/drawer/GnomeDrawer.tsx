@@ -1,6 +1,7 @@
 import Button from '@material-ui/core/Button';
 import Divider from '@material-ui/core/Divider';
 import Drawer from '@material-ui/core/Drawer';
+import FormHelperText from '@material-ui/core/FormHelperText';
 import IconButton from '@material-ui/core/IconButton';
 import InputLabel from '@material-ui/core/InputLabel';
 import List from '@material-ui/core/List';
@@ -8,6 +9,8 @@ import MenuItem from '@material-ui/core/MenuItem';
 import Select from '@material-ui/core/Select';
 import TextField from '@material-ui/core/TextField';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
+import {IPersonaProps} from 'office-ui-fabric-react/lib/Persona'; 
+import { NormalPeoplePicker } from 'office-ui-fabric-react/lib/Pickers';
 import * as React from 'react';
 import { IGnomeDrawerProps } from './IGnomeDrawerProps';
 import { IGnomeDrawerState } from './IGnomeDrawerState';
@@ -18,6 +21,7 @@ export default class GnomeDrawer extends React.Component<IGnomeDrawerProps, IGno
         super(props);
         
         this.state = {
+            gnomeFriends: [],
             gnomeHair:[],
             gnomeName: '',
             gnomeProfession: [],
@@ -80,7 +84,7 @@ export default class GnomeDrawer extends React.Component<IGnomeDrawerProps, IGno
                         value={this.state.gnomeProfession}
                         onChange={this.handleProfessionSelectChange}
                         fullWidth={true}
-                        className={"selectStyle"}
+                        
                         multiple={true}
                     >
                         <MenuItem value="">
@@ -90,6 +94,7 @@ export default class GnomeDrawer extends React.Component<IGnomeDrawerProps, IGno
                             return <MenuItem key={index} value={hair}>{hair}</MenuItem>
                         })}
                     </Select>
+                    <FormHelperText className={"selectStyle"}>Gnomes will be showed if they have one of the professions selected.</FormHelperText>
 
                     <Divider className={"selectStyle"}/>
                     <InputLabel>
@@ -162,6 +167,15 @@ export default class GnomeDrawer extends React.Component<IGnomeDrawerProps, IGno
                         onChange={this.handleGnomeMaxWeightChange}
                         className={"selectStyle"}
                         />
+                <Divider/>
+                <InputLabel>
+                    Gnome Friends
+                </InputLabel>
+                <NormalPeoplePicker
+                    onResolveSuggestions = {this.onPeoplePickerResolve}
+                    onChange = {this.onPeoplePickerChange}
+                    key={'normal'}
+                />
                 </List>
                 <Button onClick={this.searchGnomes} color="primary">
                     Search
@@ -172,6 +186,28 @@ export default class GnomeDrawer extends React.Component<IGnomeDrawerProps, IGno
 
     public componentWillReceiveProps(newProps: any){
         this.setState({isVisible: newProps.isVisible});
+    }
+
+    public searchGnomeFriendsByName = (filterText: string):IPersonaProps[] => {
+        const people: IPersonaProps[] = [];
+        this.props.gnomeNames.forEach(name => {
+            if(name.indexOf(filterText)!==-1){
+                const persona: IPersonaProps = {};
+                persona.primaryText = name;
+                if(people.length < 9){
+                    people.push(persona);
+                }
+            }
+        });
+        return people;
+    }
+
+    private onPeoplePickerResolve = (filterText: string, currentPersonas: IPersonaProps[], limitResults?: number) => {
+        return filterText ? this.searchGnomeFriendsByName(filterText) : [];
+    }
+
+    private onPeoplePickerChange = (currentGnomes?: IPersonaProps[]) => {
+        this.setState({gnomeFriends: currentGnomes});
     }
 
     private handleGnomeNameChange = (event: any) => {
@@ -229,7 +265,14 @@ export default class GnomeDrawer extends React.Component<IGnomeDrawerProps, IGno
     }
 
     private searchGnomes = () => {
+        console.log(this.state.gnomeFriends);
+        const gnomeFriends: string[] = [];
+        this.state.gnomeFriends.forEach(gnome => {
+            gnomeFriends.push(gnome.primaryText);
+        });
+        console.log(gnomeFriends);
         this.props.filterGnomes(
+            gnomeFriends,
             this.state.gnomeName, 
             this.state.gnomeHair, 
             this.state.gnomeProfession,

@@ -7,6 +7,7 @@ export interface IBrastlewarkState {
     gnomes: IGnomeModel[];
     gnomesHairColor: string[];
     gnomesProfessions: string[];
+    gnomesNames: string[];
     isBusy: boolean;
     isDrawerVisible: boolean;
     maxAge: number;
@@ -22,6 +23,7 @@ export interface IGetGnomesSuccessAction {
     type: 'brastlewark/GET_GNOMES_SUCCESS';
     gnomes: IGnomeModel[];
     gnomesHairColor: string[];
+    gnomesNames: string[];
     gnomesProfessions: string[];
     maxAge: number;
     maxHeight: number;
@@ -43,6 +45,7 @@ export interface IHideDrawer {
 
 export interface IFilterGnomes {
     type: 'brastlewark/FILTER_GNOMES';
+    gnomeFriends: string[];
     gnomeName: string;
     gnomeHair: string[];
     gnomeProfession: string[];
@@ -66,6 +69,7 @@ export const initialState: IBrastlewarkState = {
     error: null,
     gnomes: [],
     gnomesHairColor: [],
+    gnomesNames: [],
     gnomesProfessions: [],
     isBusy: false,
     isDrawerVisible: false,
@@ -97,6 +101,7 @@ export default (state = initialState, action: IBrastlewarkAction) => {
                 allGnomes: action.gnomes,
                 gnomes: action.gnomes,
                 gnomesHairColor: action.gnomesHairColor,
+                gnomesNames: action.gnomesNames,
                 gnomesProfessions: action.gnomesProfessions,
                 isBusy: false,
                 isDrawerVisible: true,
@@ -120,6 +125,7 @@ export default (state = initialState, action: IBrastlewarkAction) => {
                 let age = false;
                 let height = false;
                 let weight = false;
+                let friends = false;
 
                 if((action.gnomeName==null || action.gnomeName==="") 
                 || gnome.name.toLowerCase().includes(action.gnomeName.toLowerCase())){
@@ -160,7 +166,18 @@ export default (state = initialState, action: IBrastlewarkAction) => {
                     weight=true;
                 }
 
-                if(name && hair && profession && age && height && weight){
+                if(action.gnomeFriends.length===0){
+                    friends=true;
+                }
+                else {
+                    action.gnomeFriends.forEach(friend => {
+                        if(gnome.friends.indexOf(friend)!==-1){
+                            friends = true;
+                        }
+                    });
+                }
+
+                if(name && hair && profession && age && height && weight && friends){
                     gnomesToShow.push(gnome);
                 }
             });

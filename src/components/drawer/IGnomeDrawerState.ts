@@ -1,4 +1,7 @@
+import {IPersonaProps} from 'office-ui-fabric-react/lib/Persona';
+
 export interface IGnomeDrawerState {
+    gnomeFriends: IPersonaProps[];
     gnomeHair: string[];
     gnomeName: string;
     gnomeProfession: string[];

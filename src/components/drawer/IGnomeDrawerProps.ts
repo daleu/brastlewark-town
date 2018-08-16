@@ -1,5 +1,6 @@
 export interface IGnomeDrawerProps {
     gnomesHairColor: string[];
+    gnomeNames: string[];
     gnomesProfessions: string[];
     isVisible: boolean;
     maxAge: number;
@@ -7,6 +8,7 @@ export interface IGnomeDrawerProps {
     maxWeight: number;
     closeDrawer: () => void;
     filterGnomes: (
+        gnomeFriends: string[],
         gnomeName: string,
         gnomeHair: string[], 
         gnomeProfession: string[],

@@ -4,12 +4,20 @@ import IDataProvider from "../dataProviders/IDataProvider";
 import { IGnomeModel } from "../models/IGnomeModel";
 
 const GetGnomesRequest = () =>({ type:GET_GNOMES_REQUEST});
-const GetGnomesSuccess = (gnomes: IGnomeModel[], maxAge: number, maxHeight: number, maxWeight: number, gnomesHairColor: string[], gnomesProfessions: string[]) =>
-  ({ type:GET_GNOMES_SUCCESS, gnomes, maxAge, maxHeight, maxWeight, gnomesHairColor, gnomesProfessions});
+const GetGnomesSuccess = (
+  gnomes: IGnomeModel[], 
+  maxAge: number, 
+  maxHeight: number, 
+  maxWeight: number, 
+  gnomesHairColor: string[], 
+  gnomesProfessions: string[],
+  gnomesNames: string[]
+) => ({ type:GET_GNOMES_SUCCESS, gnomes, maxAge, maxHeight, maxWeight, gnomesHairColor, gnomesProfessions, gnomesNames});
 const GetGnomesError = (error: string) =>({ type:GET_GNOMES_ERROR, error});
 const ShowDrawerAction = () => ({type:SHOW_DRAWER});
 const HideDrawerAction = () => ({type:HIDE_DRAWER});
 const FilterGnomesAction = (
+  gnomeFriends: string[],
   gnomeName: string, 
   gnomeHair: string[], 
   gnomeProfession: string[],
@@ -19,7 +27,7 @@ const FilterGnomesAction = (
   maxHeight: number,
   minWeight: number,
   maxWeight: number
-) => ({type:FILTER_GNOMES, gnomeName, gnomeHair, gnomeProfession, minAge, maxAge, minHeight, maxHeight, minWeight, maxWeight});
+) => ({type:FILTER_GNOMES, gnomeFriends, gnomeName, gnomeHair, gnomeProfession, minAge, maxAge, minHeight, maxHeight, minWeight, maxWeight});
 
 export function GetGnomes() {
   return async (dispatch: any) =>{
@@ -38,11 +46,13 @@ export function GetGnomes() {
     .then((gnomes: IGnomeModel[]) =>{
       const gnomesHairColor: string[] = [];
       const gnomesProfessions: string[] = [];
+      const gnomesNames: string[] = [];
       let maxHeight: number = 0;
       let maxWeight: number = 0;
       let maxAge: number = 0;
       gnomes.forEach(gnome => {
-        if(gnome.weight>maxHeight){ maxHeight=gnome.height;}
+        gnomesNames.push(gnome.name);
+        if(gnome.height>maxHeight){ maxHeight=gnome.height;}
         if(gnome.weight>maxWeight){ maxWeight=gnome.weight;}
         if(gnome.age>maxAge){ maxAge=gnome.age;}
         if(gnomesHairColor.indexOf(gnome.hair_color)===-1){
@@ -54,7 +64,7 @@ export function GetGnomes() {
           }
         });
       });
-      dispatch(GetGnomesSuccess(gnomes,maxAge,maxHeight,maxWeight,gnomesHairColor,gnomesProfessions));
+      dispatch(GetGnomesSuccess(gnomes,maxAge,maxHeight,maxWeight,gnomesHairColor,gnomesProfessions, gnomesNames));
     })
     .catch((error: string)=>{
       dispatch(GetGnomesError(error));
@@ -75,6 +85,7 @@ export function HideDrawer(){
 }
 
 export function FilterGnomes(
+  gnomeFriends: string[],
   gnomeName: string, 
   gnomeHair: string[], 
   gnomeProfession: string[],
@@ -86,6 +97,6 @@ export function FilterGnomes(
   maxWeight: number
 ){
   return async (dispatch: any) =>{
-    dispatch(FilterGnomesAction(gnomeName, gnomeHair, gnomeProfession, minAge, maxAge, minHeight, maxHeight, minWeight, maxWeight));
+    dispatch(FilterGnomesAction(gnomeFriends, gnomeName, gnomeHair, gnomeProfession, minAge, maxAge, minHeight, maxHeight, minWeight, maxWeight));
   }
 }
